@@ -1,0 +1,15 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "mypackage"
+version = "0.0.1"
+dependencies = [
+  "idom",
+  "idom-jupyter",
+  "shortuuid"
+]
+
+[tool.setuptools.package-data]
+mypackage = ["*.js"]
