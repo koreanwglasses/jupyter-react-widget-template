@@ -10,9 +10,15 @@ class WidgetBase:
 
     @idom.component
     def show(self):
-        last_response, set_last_response = idom.hooks.use_state([])
+        # Communicate with the component by passing
+        # messages to props. This is translated into
+        # events on the front-end (js) side in widget-wrapper.tsx
+        last_message, set_last_message = idom.hooks.use_state(None)
 
-        def callable_wrapper(func, target, *args):
+        # Define helper functions handling events from component
+        # and returning messages to component
+
+        def exec_func(func, id, args):
             try:
                 value = func(*args)
                 error = None
@@ -20,16 +26,22 @@ class WidgetBase:
                 value = None
                 error = e.args
 
-            set_last_response({"target": target, "value": value, "error": error})
-
-        event_handlers = {}
-        for key, value in self.__callables.items():
-            event_handlers["call:" + key] = idom.core.events.EventHandler(
-                lambda data: callable_wrapper(value, *data), target=f"call:{key}"
+            set_last_message(
+                {
+                    "type": f"return_value:{id}",
+                    "payload": [value, error],
+                }
             )
 
-        y = self.__component(
-            {"lastResponse": last_response, "componentProps": self.__props},
+        # Register event handlers
+        event_handlers = {}
+        for key, value in self.__callables.items():
+            event_handlers["exec_func:" + key] = idom.core.events.EventHandler(
+                lambda data: exec_func(value, data[0], data[1]), target=f"exec_func:{key}"
+            )
+
+        # Create component
+        return self.__component(
+            {"lastMessage": last_message, "componentProps": self.__props},
             event_handlers=event_handlers,
         )
-        return y

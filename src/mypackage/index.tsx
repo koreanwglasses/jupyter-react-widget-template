@@ -1,6 +1,7 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom/client";
-import { LayoutContext, WidgetWrapper } from "./core/idom-react";
+import { LayoutContext } from "./core/idom-react";
+import { WidgetWrapper } from "./core/widget-wrapper";
 
 export function bind(node: Element, context: LayoutContext) {
   const root = ReactDOM.createRoot(node);
@@ -12,12 +13,12 @@ export function bind(node: Element, context: LayoutContext) {
         | React.FunctionComponent<{}>
         | React.ComponentClass<{}, any>,
       props: {
-        lastResponse: { target: string; value: any; error: any };
+        lastMessage: any;
         componentProps: React.Attributes | null | undefined;
       },
       children: React.ReactNode[]
     ) => (
-      <WidgetWrapper layoutContext={context} lastResponse={props.lastResponse}>
+      <WidgetWrapper layoutContext={context} lastMessage={props.lastMessage}>
         <Component {...props.componentProps}>{children}</Component>
       </WidgetWrapper>
     ),

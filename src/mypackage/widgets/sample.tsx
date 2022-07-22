@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useWidgetContext } from "../core/idom-react";
+import { useWidgetContext } from "../core/widget-wrapper";
 
 export const Sample = () => {
   const widget = useWidgetContext();
@@ -10,7 +10,7 @@ export const Sample = () => {
       <div>
         <button
           onClick={async () => {
-            setLastResponse(await widget.call("func"));
+            setLastResponse(await widget.exec("func"));
           }}
         >
           Click me!
