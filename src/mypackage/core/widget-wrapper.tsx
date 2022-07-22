@@ -27,7 +27,6 @@ export const WidgetWrapper = ({
   // lastMessage prop. This emits an event based on the
   // received message
   React.useEffect(() => {
-    console.log(lastMessage)
     if (lastMessage)
       emitter.current.emit(lastMessage.type, ...lastMessage.payload);
   }, [lastMessage]);
