@@ -1,16 +1,16 @@
-import React, { useState } from "react";
-import { useWidgetContext } from "../core/widget-wrapper";
+import React from "react";
+import { useWidgetModel } from "../core/widget-wrapper";
 
 export const Sample = () => {
-  const widget = useWidgetContext();
-  const [lastResponse, setLastResponse] = useState("");
+  const model = useWidgetModel();
+
   return (
     <div>
-      <div>Last Response: {lastResponse}</div>
+      <div>{model.x}</div>
       <div>
         <button
           onClick={async () => {
-            setLastResponse(await widget.exec("func"));
+            model.x = await model.cb(model.x);
           }}
         >
           Click me!

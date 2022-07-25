@@ -14,11 +14,16 @@ export function bind(node: Element, context: LayoutContext) {
         | React.ComponentClass<{}, any>,
       props: {
         lastMessage: any;
+        initialModel: any;
         componentProps: React.Attributes | null | undefined;
       },
       children: React.ReactNode[]
     ) => (
-      <WidgetWrapper layoutContext={context} lastMessage={props.lastMessage}>
+      <WidgetWrapper
+        layoutContext={context}
+        lastMessage={props.lastMessage}
+        initialModelProperties={props.initialModel}
+      >
         <Component {...props.componentProps}>{children}</Component>
       </WidgetWrapper>
     ),
