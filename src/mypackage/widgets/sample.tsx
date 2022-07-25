@@ -1,16 +1,17 @@
 import React from "react";
-import { useLayoutContext } from "../core/idom-react";
+import { useWidgetModel } from "../core/widget-wrapper";
 
-export const Sample = ({ text }: { text: string }) => {
-  const layoutContext = useLayoutContext();
+export const Sample = () => {
+  const model = useWidgetModel();
+
   return (
     <div>
-      <div>{text}</div>
+      <div>{model.x}</div>
       <div>
         <button
-          onClick={() =>
-            layoutContext.sendEvent({ target: "click", data: ["hya"] })
-          }
+          onClick={async () => {
+            model.x = await model.cb(model.x);
+          }}
         >
           Click me!
         </button>

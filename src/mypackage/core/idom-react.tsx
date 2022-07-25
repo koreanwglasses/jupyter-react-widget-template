@@ -24,6 +24,4 @@ export type BindFunction = (
   unmount(): void;
 };
 
-const _LayoutContext = React.createContext<LayoutContext>({ sendEvent() {} });
-export const LayoutContextProvider = _LayoutContext.Provider
-export const useLayoutContext = () => React.useContext(_LayoutContext)
+
