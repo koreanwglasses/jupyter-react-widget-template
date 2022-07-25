@@ -15,7 +15,6 @@ git clone git@github.com:koreanwglasses/jupyter-idom-react.git
 # cd into cloned repo
 cd jupyter-idom-react
 ```
-
 ### 2. Install dependencies
 
 Next, install dependencies with the following commands.
@@ -30,6 +29,9 @@ pipenv install --dev
 yarn install # or `npm install`
 ```
 
+### 3. (Optional) Rename your package
+
+To rename your package, simply renamve the `src/mypackage` directory and replace `name = "mypackage"` in `pyproject.toml`.
 ## Building and Debugging
 
 Use the following command to build the package to `dist`.
@@ -63,3 +65,19 @@ pipenv run jupyter notebook
 ```
 
 ## Creating a Widget
+
+Follow these steps to create a widget. Look at `src/widgets/sample.py` and `src/widgets/sample.tsx` for examples. For these steps, we will assume your widget is called `mywidget`.
+### 1. Create source files
+
+Create a `mywidget.py` and a `mywidget.tsx` in `src/widgets` as follows. Note that these files can be placed anywhere, as long as they are exported properly in step n.
+
+```
+.
+└── src
+    └── widgets
+        ├── mywidget.py
+        └── mywidget.tsx
+```
+
+### 2. Create your widget
+
