@@ -1,4 +1,4 @@
-from mypackage.core.widget_base import WidgetBase
+from ..core.widget_base import WidgetBase
 
 
 class Sample(WidgetBase):

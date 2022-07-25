@@ -31,7 +31,7 @@ yarn install # or `npm install`
 
 ### 3. (Optional) Rename your package
 
-To rename your package, simply renamve the `src/mypackage` directory and replace `name = "mypackage"` in `pyproject.toml`.
+To rename your package, simply rename the `src/mypackage` directory and replace `name = "mypackage"` in `pyproject.toml`.
 ## Building and Debugging
 
 Use the following command to build the package to `dist`.
