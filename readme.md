@@ -10,10 +10,10 @@ First, clone this repo with the following commands.
 
 ```sh
 # Clone the repository from git
-git clone git@github.com:koreanwglasses/jupyter-idom-react.git
+git clone git@github.com:koreanwglasses/jupyter-react-widget-template.git
 
 # cd into cloned repo
-cd jupyter-idom-react
+cd jupyter-react-widget-template
 ```
 ### 2. Install dependencies
 
