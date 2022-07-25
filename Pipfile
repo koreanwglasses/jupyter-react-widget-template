@@ -7,12 +7,12 @@ name = "pypi"
 idom = "*"
 idom-jupyter = "*"
 shortuuid = "*"
+notebook = "<7"
+ipywidgets = "<8"
 
 [dev-packages]
 black = "*"
 build = "*"
-notebook = "<7"
-ipywidgets = "==7.7.1"
 
 [requires]
 python_version = "3.9"
