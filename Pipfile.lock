@@ -169,7 +169,7 @@
                 "sha256:76cfa43e7a2e1408e41fc68f1fcbcb5e366a5dd131c8232b527d87f70f220823"
             ],
             "markers": "python_version >= '3.7'",
-            "version": "==8.0.0rc1"
+            "version": "==7.7.1"
         },
         "jedi": {
             "hashes": [
