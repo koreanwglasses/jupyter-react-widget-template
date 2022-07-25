@@ -12,7 +12,7 @@ shortuuid = "*"
 black = "*"
 build = "*"
 notebook = "<7"
-ipywidgets = "<8"
+ipywidgets = "==7.7.1"
 
 [requires]
 python_version = "3.9"
