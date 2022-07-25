@@ -15,6 +15,7 @@ git clone git@github.com:koreanwglasses/jupyter-react-widget-template.git
 # cd into cloned repo
 cd jupyter-react-widget-template
 ```
+
 ### 2. Install dependencies
 
 Next, install dependencies with the following commands.
@@ -31,7 +32,8 @@ yarn install # or `npm install`
 
 ### 3. (Optional) Rename your package
 
-To rename your package, simply rename the `src/mypackage` directory and replace `name = "mypackage"` in `pyproject.toml`.
+To rename your package, simply rename the `src/mypackage` directory and replace `name = "mypackage"` in `pyproject.toml`. Also update entry point of the base configuration in `webpack.config.ts`.
+
 ## Building and Debugging
 
 Use the following command to build the package to `dist`.
@@ -67,6 +69,7 @@ pipenv run jupyter notebook
 ## Creating a Widget
 
 Follow these steps to create a widget. Look at `src/widgets/sample.py` and `src/widgets/sample.tsx` for examples. For these steps, we will assume your widget is called `mywidget`.
+
 ### 1. Create source files
 
 Create a `mywidget.py` and a `mywidget.tsx` in `src/widgets` as follows. Note that these files can be placed anywhere, as long as they are exported properly in step n.
@@ -80,4 +83,3 @@ Create a `mywidget.py` and a `mywidget.tsx` in `src/widgets` as follows. Note th
 ```
 
 ### 2. Create your widget
-
