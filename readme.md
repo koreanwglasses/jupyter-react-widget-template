@@ -32,7 +32,22 @@ yarn install # or `npm install`
 
 ### 3. (Optional) Rename your package
 
-To rename your package, simply rename the `src/mypackage` directory and replace `name = "mypackage"` in `pyproject.toml`. Also update entry point of the base configuration in `webpack.config.ts`.
+To rename your package, simply rename the `src/mypackage` directory and replace `name = "mypackage"` in `pyproject.toml`. Then, update the entry point and output of the base configuration in `webpack.config.ts` like so:
+
+```ts
+/** webpack.config.ts **/
+/* ... */
+const base: Configuration = {
+    entry: "./src/your-package-name"
+    /* ... */
+    output: {
+        /* ... */
+        path: path.resolve(__dirname, "src/your-package-name"),
+    }
+    /* ... */
+}
+/* ... */
+```
 
 ## Building and Debugging
 
