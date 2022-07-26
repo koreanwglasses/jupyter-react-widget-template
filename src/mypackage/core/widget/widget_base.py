@@ -102,7 +102,9 @@ class WidgetBase:
         use_effect(init, dependencies=[])
 
         # Synchronize model with component
-        model, set_model = use_state(lambda: self.__model.serialize())
+        model, set_model = use_state(
+            lambda: self.__model.serialize() if self.__model is not None else None
+        )
 
         def observe_model():
             def cb(ev: MutationEvent):
