@@ -70,8 +70,6 @@ export const WidgetWrapper = ({
 
         // send an acknowledgement that message was received
         sendMessage("message_ack", message.id);
-
-        console.log(message)
       });
   }, [messages]);
 
@@ -80,7 +78,6 @@ export const WidgetWrapper = ({
   const [localModel, setLocalModel] = React.useState(model);
   useEffect(() => {
     setLocalModel(model);
-    console.log(model)
   }, [model]);
 
   // Helpers for using model
