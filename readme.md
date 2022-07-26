@@ -49,6 +49,7 @@ const base: Configuration = {
 /* ... */
 ```
 
+Finally, update the `NAME` constant in `src/your-package-name/core/idom_loader.py`.
 ## Building and Debugging
 
 Use the following command to build the package to `dist`.

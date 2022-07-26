@@ -41,6 +41,8 @@ const base: Configuration = {
   },
 
   output: {
+    filename: "bundle.js",
+
     // Output as a module so IDOM can use it
     module: true,
     library: { type: "module" },
@@ -69,10 +71,6 @@ const base: Configuration = {
 const dev: Configuration = extend(base, {
   mode: "development",
 
-  output: {
-    filename: "bundle.dev.js",
-  },
-
   // Optimize bundle size by getting React from a CDN
   externals: {
     react: "https://esm.sh/react@18?dev",
@@ -88,10 +86,6 @@ const dev: Configuration = extend(base, {
  */
 const prod: Configuration = extend(base, {
   mode: "production",
-
-  output: {
-    filename: "bundle.min.js",
-  },
 
   // Optimize bundle size by getting React from a CDN
   externals: {

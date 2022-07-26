@@ -8,34 +8,17 @@ def rel_to_abs(path):
     return os.path.abspath(os.path.join(os.path.dirname(__file__), path))
 
 
-DEV_BUNDLE_PATH = rel_to_abs("../bundle.dev.js")
-PROD_BUNDLE_PATH = rel_to_abs("../bundle.min.js")
-
-MODE = "development"
-BUNDLE_PATH = DEV_BUNDLE_PATH if MODE == "development" else PROD_BUNDLE_PATH
-
+BUNDLE_PATH = rel_to_abs("../bundle.js")
 FALLBACK = "⌛"
+NAME = "mypackage"
 
 __web_module = None
 
-NAME = "mypackage"
-
 
 def __load_web_module():
-    global __web_module, __reload_num
+    global __web_module
 
-    # Always reload in development mode
-    if MODE == "development":
-        # Append a random string to the module name
-        # to force it to reload
-        uid = uuid()[:6]
-
-        __web_module = idom.web.module_from_file(
-            name=f"{NAME}_{uid}", file=BUNDLE_PATH, fallback=FALLBACK
-        )
-
-    # Otherwise only load once
-    elif __web_module == None:
+    if __web_module == None:
         __web_module = idom.web.module_from_file(
             name=f"{NAME}", file=BUNDLE_PATH, fallback=FALLBACK
         )
@@ -46,3 +29,14 @@ def __load_web_module():
 def load_component(component_name):
     web_module = __load_web_module()
     return idom.web.export(web_module, component_name)
+
+
+def reload_bundle():
+    global __web_module
+    # Append a random string to the module name
+    # to force it to reload
+    uid = uuid()[:6]
+
+    __web_module = idom.web.module_from_file(
+        name=f"{NAME}_{uid}", file=BUNDLE_PATH, fallback=FALLBACK
+    )
