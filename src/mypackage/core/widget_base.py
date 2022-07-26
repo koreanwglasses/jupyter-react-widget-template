@@ -83,21 +83,33 @@ class WidgetBase:
         """
         Send a message to the component.
         """
-        for func in self.__setters:
-            func({"type": type, "payload": payload})
+        # Add messages to queue/trigger a re-render
+        for set_messages in self.__setters:
+            set_messages(
+                lambda messages: [*messages, {"type": type, "payload": payload}]
+            )
 
     @idom.component
     def show(self):
         # Communicate with the component by passing
         # messages to props. This is translated into
         # events on the front-end (js) side in widget-wrapper.tsx
-        last_message, set_last_message = idom.hooks.use_state(None)
-        self.__setters.append(set_last_message)
+        messages, set_messages = idom.hooks.use_state([])
+
+        if set_messages not in self.__setters:
+            self.__setters.append(set_messages)
+
+        # Remove messages from queue once component has rendered
+        def reset_messages():
+            if messages != []:
+                set_messages([])
+
+        idom.hooks.use_effect(reset_messages)
 
         # Create component
         return self.__component(
             {
-                "lastMessage": last_message,
+                "messages": messages,
                 "componentProps": self.__props,
                 "initialModel": WidgetModel.properties(self.model),
             },

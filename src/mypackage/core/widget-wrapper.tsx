@@ -28,12 +28,12 @@ const WidgetWrapperContext = React.createContext<{
 
 export const WidgetWrapper = ({
   children,
-  lastMessage,
+  messages,
   layoutContext,
   initialModelProperties,
 }: React.PropsWithChildren<{
   layoutContext: LayoutContext;
-  lastMessage: Message;
+  messages: Message[];
   initialModelProperties: ModelProperties;
 }>) => {
   // Use an EventEmitter to simulate and listen for
@@ -45,8 +45,11 @@ export const WidgetWrapper = ({
   // lastMessage prop. This emits an event based on the
   // received message
   React.useEffect(() => {
-    if (lastMessage) receiver.emit(lastMessage.type, lastMessage.payload);
-  }, [lastMessage]);
+    if (messages)
+      messages.forEach((message) =>
+        receiver.emit(message.type, message.payload)
+      );
+  }, [messages]);
 
   // Store the model parameters as state
   const [modelProperties, setModelProperties] = React.useState(

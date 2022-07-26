@@ -13,7 +13,7 @@ export function bind(node: Element, context: LayoutContext) {
         | React.FunctionComponent<{}>
         | React.ComponentClass<{}, any>,
       props: {
-        lastMessage: any;
+        messages: any;
         initialModel: any;
         componentProps: React.Attributes | null | undefined;
       },
@@ -21,7 +21,7 @@ export function bind(node: Element, context: LayoutContext) {
     ) => (
       <WidgetWrapper
         layoutContext={context}
-        lastMessage={props.lastMessage}
+        messages={props.messages}
         initialModelProperties={props.initialModel}
       >
         <Component {...props.componentProps}>{children}</Component>
