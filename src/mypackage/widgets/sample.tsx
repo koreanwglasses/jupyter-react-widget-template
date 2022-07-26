@@ -1,5 +1,5 @@
 import React from "react";
-import { useWidgetModel } from "../core/widget-wrapper";
+import { useWidgetModel } from "../core/widget/hooks";
 
 export const Sample = () => {
   const model = useWidgetModel();
