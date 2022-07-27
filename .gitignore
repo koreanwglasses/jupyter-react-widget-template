@@ -1,6 +1,6 @@
 node_modules
 dist
-bundle.*.js
+bundle.js
 *.egg-info
 .ipynb_checkpoints
 __pycache__

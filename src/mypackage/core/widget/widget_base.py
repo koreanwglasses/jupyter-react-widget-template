@@ -2,7 +2,7 @@ from typing import Any, Callable, Dict, Mapping, TypedDict, Union
 import idom
 from idom import component, use_effect, use_memo, use_state
 from shortuuid import uuid
-from .widget_model import MutationEvent, WidgetModel
+from .widget_model import MutationEvent, WidgetModel, is_widget_model
 from ..idom_loader import load_component
 
 
@@ -20,10 +20,10 @@ class WidgetBase:
         self.__setters: Dict[str, Callable] = {}
         self.__message_queues: Dict[str, Dict[str, _Message]] = {}
 
-        if isinstance(model, WidgetModel) or model is None:
+        if is_widget_model(model) or model is None:
             self.__model = model
         else:
-            self.__model = WidgetModel(model)
+            self.__model = WidgetModel.make_model(model)
 
     # Helper functions for 2-way communication with component
     def __recv_message(self, type, payload, client_id):
@@ -42,14 +42,14 @@ class WidgetBase:
             key = payload["key"]
             value = payload["value"]
 
-            self.__model.set(key, value, client_id=client_id)
+            WidgetModel.get_backend(self.__model).set(key, value, client_id=client_id)
 
         elif type == "call_func":
             key = payload["key"]
             return_id = payload["returnId"]
             args = payload["args"]
 
-            func = self.__model.get(key)
+            func = self.__model[key]
             self.__send_message(return_id, _call_no_throw(func, args))
 
         else:
@@ -103,18 +103,20 @@ class WidgetBase:
 
         # Synchronize model with component
         model, set_model = use_state(
-            lambda: self.__model.serialize() if self.__model is not None else None
+            lambda: WidgetModel.serialize(self.__model)
+            if self.__model is not None
+            else None
         )
 
         def observe_model():
             def cb(ev: MutationEvent):
                 if ev.initiator != client_id:
                     self.__flush_messages(client_id)
-                    set_model(ev.target.serialize())
+                    set_model(WidgetModel.serialize(self.__model))
 
             if self.__model is not None:
-                observer_id = self.__model.observe(cb)
-                return lambda: self.__model.unobserve(observer_id)
+                observer_id = WidgetModel.observe(self.__model, cb)
+                return lambda: WidgetModel.unobserve(self.__model, observer_id)
 
         use_effect(observe_model, dependencies=[])
 

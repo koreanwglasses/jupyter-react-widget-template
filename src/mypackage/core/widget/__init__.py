@@ -1,2 +1,1 @@
-from .widget_base import WidgetBase
-from .widget_base import WidgetModel
+from .widget_base import WidgetBase, WidgetModel
