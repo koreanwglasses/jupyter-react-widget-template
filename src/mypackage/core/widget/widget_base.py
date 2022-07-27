@@ -42,7 +42,7 @@ class WidgetBase:
             key = payload["key"]
             value = payload["value"]
 
-            WidgetModel.get_backend(self.__model).set(key, value, client_id=client_id)
+            self.__model[key] = value
 
         elif type == "call_func":
             key = payload["key"]

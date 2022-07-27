@@ -6,14 +6,25 @@ export const Sample = () => {
 
   return (
     <div>
-      <div>{model.x}</div>
+      <div>
+        <input
+          onInput={(e) => (model.x = e.currentTarget.value)}
+          value={model.x ?? 0}
+        />
+      </div>
+      +
+      <div>
+        <input
+          onInput={(e) => (model.y = e.currentTarget.value)}
+          value={model.y ?? 0}
+        />
+      </div>
+      =<div>{model.z}</div>
       <div>
         <button
-          onClick={async () => {
-            model.x = await model.cb(model.x);
-          }}
+          onClick={async () => (model.z = await model.cb(+model.x, +model.y))}
         >
-          Click me!
+          Compute
         </button>
       </div>
     </div>
